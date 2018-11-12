@@ -1,0 +1,60 @@
+{
+  "name": "@akashic-contents/niconico-wave",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Akashic Engine製ゲーム・ニコニコウェーブ",
+  "main": "index.js",
+  "scripts": {
+    "build": "gulp clean && gulp build && cd game && akashic scan asset script && akashic scan globalScripts",
+    "_build": "tsc",
+    "updateasset": "cd game && akashic scan asset",
+    "updatemodule": "cd game && akashic update",
+    "lint": "gulp lint",
+    "format": "gulp format",
+    "checkandbuild": "npm run format && npm run lint && npm run updateasset && npm run build",
+    "typedoc": "gulp cleandoc && gulp typedoc",
+    "start": "akashic-sandbox game",
+    "start3001": "akashic-sandbox -p 3001 game",
+    "statsize": "cd game && akashic stat size",
+    "test": "gulp test && npm run lint",
+    "init": "npm install --no-package-lock && cd game && npm install && cd ../"
+  },
+  "author": "DWANGO Co., Ltd.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/akashic-contents/niconico-wave.git"
+  },
+  "license": "MIT",
+  "files": [
+    "bin",
+    "lib",
+    "index.js"
+  ],
+  "devDependencies": {
+    "@akashic/akashic-cli": "~1.3.0",
+    "@akashic/akashic-engine": "~1.12.5",
+    "@akashic/akashic-sandbox": "~0.13.3",
+    "@types/node": "7.0.28",
+    "@types/lodash": "ts2.1",
+    "@types/handlebars": "ts2.1",
+    "del": "^1.1.1",
+    "gulp": "^3.8.11",
+    "gulp-istanbul": "~0.6.0",
+    "gulp-jasmine": "~2.0.0",
+    "gulp-shell": "^0.4.1",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-tslint": "~8.1.3",
+    "gulp-util": "^3.0.7",
+    "jasmine": "~2.1.1",
+    "jasmine-reporters": "~2.0.4",
+    "jasmine-terminal-reporter": "~0.9.1",
+    "tslint": "~5.9.1",
+    "typedoc": "~0.8.0",
+    "typescript": "~2.7.2",
+    "typescript-formatter": "~7.1.0"
+  },
+  "dependencies": {
+    "@akashic-extension/akashic-animation": "2.7.1",
+    "@akashic-extension/akashic-timeline": "0.4.4"
+  }
+}

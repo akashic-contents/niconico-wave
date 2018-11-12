@@ -1,0 +1,5 @@
+node_modules/
+game/script/
+.DS_Store
+Thumbs.db
+package-lock.json

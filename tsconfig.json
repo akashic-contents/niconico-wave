@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "noLib": true,
+    "noImplicitAny": true,
+    "suppressImplicitAnyIndexErrors": false,
+    "removeComments": false,
+    "newLine": "LF",
+    "module": "commonjs",
+    "outDir": "./game/script",
+    "noUnusedLocals": true
+  },
+  "include": [
+    "./typings/**/*.ts",
+    "./src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "compileOnSave": true
+}

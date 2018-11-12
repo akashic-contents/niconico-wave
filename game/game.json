@@ -1,0 +1,675 @@
+{
+	"width": 640,
+	"height": 360,
+	"fps": 30,
+	"assets": {
+		"asaInfo": {
+			"type": "script",
+			"path": "script/classes/asaInfo.js",
+			"global": true
+		},
+		"assetInfo": {
+			"type": "script",
+			"path": "script/classes/assetInfo.js",
+			"global": true
+		},
+		"define": {
+			"type": "script",
+			"path": "script/classes/define.js",
+			"global": true
+		},
+		"difficultyParameters": {
+			"type": "script",
+			"path": "script/classes/difficultyParameters.js",
+			"global": true
+		},
+		"gameCreator": {
+			"type": "script",
+			"path": "script/classes/gameCreator.js",
+			"global": true
+		},
+		"gameParameterReader": {
+			"type": "script",
+			"path": "script/classes/gameParameterReader.js",
+			"global": true
+		},
+		"gameParameters": {
+			"type": "script",
+			"path": "script/classes/gameParameters.js",
+			"global": true
+		},
+		"miscAssetInfo": {
+			"type": "script",
+			"path": "script/classes/miscAssetInfo.js",
+			"global": true
+		},
+		"obstacleManager": {
+			"type": "script",
+			"path": "script/classes/obstacleManager.js",
+			"global": true
+		},
+		"soundInfo": {
+			"type": "script",
+			"path": "script/classes/soundInfo.js",
+			"global": true
+		},
+		"timerLabel": {
+			"type": "script",
+			"path": "script/classes/timerLabel.js",
+			"global": true
+		},
+		"waveGame": {
+			"type": "script",
+			"path": "script/classes/waveGame.js",
+			"global": true
+		},
+		"waveManager": {
+			"type": "script",
+			"path": "script/classes/waveManager.js",
+			"global": true
+		},
+		"cautionFilledRect": {
+			"type": "script",
+			"path": "script/common/cautionFilledRect.js",
+			"global": true
+		},
+		"commonAsaInfo": {
+			"type": "script",
+			"path": "script/common/commonAsaInfo.js",
+			"global": true
+		},
+		"commonAssetInfo": {
+			"type": "script",
+			"path": "script/common/commonAssetInfo.js",
+			"global": true
+		},
+		"commonDefine": {
+			"type": "script",
+			"path": "script/common/commonDefine.js",
+			"global": true
+		},
+		"commonSoundInfo": {
+			"type": "script",
+			"path": "script/common/commonSoundInfo.js",
+			"global": true
+		},
+		"descriptionSubscene": {
+			"type": "script",
+			"path": "script/common/descriptionSubscene.js",
+			"global": true
+		},
+		"gameSubscene": {
+			"type": "script",
+			"path": "script/common/gameSubscene.js",
+			"global": true
+		},
+		"informationSubscene": {
+			"type": "script",
+			"path": "script/common/informationSubscene.js",
+			"global": true
+		},
+		"mainSceneController": {
+			"type": "script",
+			"path": "script/common/mainSceneController.js",
+			"global": true
+		},
+		"resultSubscene": {
+			"type": "script",
+			"path": "script/common/resultSubscene.js",
+			"global": true
+		},
+		"titleSubscene": {
+			"type": "script",
+			"path": "script/common/titleSubscene.js",
+			"global": true
+		},
+		"wipeManager": {
+			"type": "script",
+			"path": "script/common/wipeManager.js",
+			"global": true
+		},
+		"commonParameterReader": {
+			"type": "script",
+			"path": "script/commonNicowariGame/commonParameterReader.js",
+			"global": true
+		},
+		"gameBase": {
+			"type": "script",
+			"path": "script/commonNicowariGame/gameBase.js",
+			"global": true
+		},
+		"rireGameParameters": {
+			"type": "script",
+			"path": "script/commonNicowariGame/rireGameParameters.js",
+			"global": true
+		},
+		"sceneController": {
+			"type": "script",
+			"path": "script/commonNicowariGame/sceneController.js",
+			"global": true
+		},
+		"subscene": {
+			"type": "script",
+			"path": "script/commonNicowariGame/subscene.js",
+			"global": true
+		},
+		"asaInfoType": {
+			"type": "script",
+			"path": "script/commonTypes/asaInfoType.js",
+			"global": true
+		},
+		"assetInfoType": {
+			"type": "script",
+			"path": "script/commonTypes/assetInfoType.js",
+			"global": true
+		},
+		"miscAssetInfoType": {
+			"type": "script",
+			"path": "script/commonTypes/miscAssetInfoType.js",
+			"global": true
+		},
+		"soundInfoType": {
+			"type": "script",
+			"path": "script/commonTypes/soundInfoType.js",
+			"global": true
+		},
+		"videoAssetInfoType": {
+			"type": "script",
+			"path": "script/commonTypes/videoAssetInfoType.js",
+			"global": true
+		},
+		"mainScene": {
+			"type": "script",
+			"path": "script/mainScene.js",
+			"global": true
+		},
+		"asaEx": {
+			"type": "script",
+			"path": "script/util/asaEx.js",
+			"global": true
+		},
+		"audioUtil": {
+			"type": "script",
+			"path": "script/util/audioUtil.js",
+			"global": true
+		},
+		"entityUtil": {
+			"type": "script",
+			"path": "script/util/entityUtil.js",
+			"global": true
+		},
+		"gameUtil": {
+			"type": "script",
+			"path": "script/util/gameUtil.js",
+			"global": true
+		},
+		"spriteSheetTypes": {
+			"type": "script",
+			"path": "script/util/spriteSheetTypes.js",
+			"global": true
+		},
+		"spriteUtil": {
+			"type": "script",
+			"path": "script/util/spriteUtil.js",
+			"global": true
+		},
+		"tiledUtil": {
+			"type": "script",
+			"path": "script/util/tiledUtil.js",
+			"global": true
+		},
+		"before_the_start": {
+			"type": "image",
+			"width": 642,
+			"height": 1810,
+			"path": "image/before_the_start.png"
+		},
+		"description_text": {
+			"type": "image",
+			"width": 425,
+			"height": 215,
+			"path": "image/description_text.png"
+		},
+		"img_bg_obj": {
+			"type": "image",
+			"width": 1536,
+			"height": 680,
+			"path": "image/img_bg_obj.png"
+		},
+		"img_num_result": {
+			"type": "image",
+			"width": 936,
+			"height": 83,
+			"path": "image/img_num_result.png"
+		},
+		"img_numbers_n": {
+			"type": "image",
+			"width": 364,
+			"height": 32,
+			"path": "image/img_numbers_n.png"
+		},
+		"img_numbers_n_red": {
+			"type": "image",
+			"width": 364,
+			"height": 32,
+			"path": "image/img_numbers_n_red.png"
+		},
+		"img_ui": {
+			"type": "image",
+			"width": 80,
+			"height": 42,
+			"path": "image/img_ui.png"
+		},
+		"nw_common": {
+			"type": "image",
+			"width": 1024,
+			"height": 512,
+			"path": "image/nw_common.png"
+		},
+		"nw_title": {
+			"type": "image",
+			"width": 500,
+			"height": 316,
+			"path": "image/nw_title.png"
+		},
+		"obstacle": {
+			"type": "image",
+			"width": 508,
+			"height": 460,
+			"path": "image/obstacle.png"
+		},
+		"result_chara_img_01": {
+			"type": "image",
+			"width": 410,
+			"height": 120,
+			"path": "image/result_chara_img_01.png"
+		},
+		"result_chara_img_02": {
+			"type": "image",
+			"width": 410,
+			"height": 120,
+			"path": "image/result_chara_img_02.png"
+		},
+		"result_chara_img_03": {
+			"type": "image",
+			"width": 410,
+			"height": 120,
+			"path": "image/result_chara_img_03.png"
+		},
+		"surfing": {
+			"type": "image",
+			"width": 1520,
+			"height": 114,
+			"path": "image/surfing.png"
+		},
+		"surfing_02": {
+			"type": "image",
+			"width": 1738,
+			"height": 1919,
+			"path": "image/surfing_02.png"
+		},
+		"title_logo": {
+			"type": "image",
+			"width": 460,
+			"height": 200,
+			"path": "image/title_logo.png"
+		},
+		"an_before_the_start_still": {
+			"type": "text",
+			"path": "text/an_before_the_start_still.asaan"
+		},
+		"an_before_the_start_still_1": {
+			"type": "text",
+			"path": "text/an_before_the_start_still_1.asaan"
+		},
+		"an_before_the_start_still_2": {
+			"type": "text",
+			"path": "text/an_before_the_start_still_2.asaan"
+		},
+		"an_before_the_start_still_3": {
+			"type": "text",
+			"path": "text/an_before_the_start_still_3.asaan"
+		},
+		"an_description_description": {
+			"type": "text",
+			"path": "text/an_description_description.asaan"
+		},
+		"an_enemy_01_a": {
+			"type": "text",
+			"path": "text/an_enemy_01_a.asaan"
+		},
+		"an_enemy_02_a": {
+			"type": "text",
+			"path": "text/an_enemy_02_a.asaan"
+		},
+		"an_enemy_03_a": {
+			"type": "text",
+			"path": "text/an_enemy_03_a.asaan"
+		},
+		"an_enemy_04_a": {
+			"type": "text",
+			"path": "text/an_enemy_04_a.asaan"
+		},
+		"an_fade_LtoR": {
+			"type": "text",
+			"path": "text/an_fade_LtoR.asaan"
+		},
+		"an_fade_RtoL": {
+			"type": "text",
+			"path": "text/an_fade_RtoL.asaan"
+		},
+		"an_gameclear_gameclear": {
+			"type": "text",
+			"path": "text/an_gameclear_gameclear.asaan"
+		},
+		"an_gameover_gameover": {
+			"type": "text",
+			"path": "text/an_gameover_gameover.asaan"
+		},
+		"an_pc_damage": {
+			"type": "text",
+			"path": "text/an_pc_damage.asaan"
+		},
+		"an_pc_nomal": {
+			"type": "text",
+			"path": "text/an_pc_nomal.asaan"
+		},
+		"an_pc_return": {
+			"type": "text",
+			"path": "text/an_pc_return.asaan"
+		},
+		"an_pc_strongest": {
+			"type": "text",
+			"path": "text/an_pc_strongest.asaan"
+		},
+		"an_readygo_readygo": {
+			"type": "text",
+			"path": "text/an_readygo_readygo.asaan"
+		},
+		"an_result_result": {
+			"type": "text",
+			"path": "text/an_result_result.asaan"
+		},
+		"an_timeout_timeout": {
+			"type": "text",
+			"path": "text/an_timeout_timeout.asaan"
+		},
+		"an_timeup_timeup": {
+			"type": "text",
+			"path": "text/an_timeup_timeup.asaan"
+		},
+		"an_title_title": {
+			"type": "text",
+			"path": "text/an_title_title.asaan"
+		},
+		"an_wave_flat": {
+			"type": "text",
+			"path": "text/an_wave_flat.asaan"
+		},
+		"an_wave_lowermost": {
+			"type": "text",
+			"path": "text/an_wave_lowermost.asaan"
+		},
+		"an_wave_move_l_s": {
+			"type": "text",
+			"path": "text/an_wave_move_l_s.asaan"
+		},
+		"an_wave_move_s_l": {
+			"type": "text",
+			"path": "text/an_wave_move_s_l.asaan"
+		},
+		"bn_before_the_start": {
+			"type": "text",
+			"path": "text/bn_before_the_start.asabn"
+		},
+		"bn_description": {
+			"type": "text",
+			"path": "text/bn_description.asabn"
+		},
+		"bn_enemy_01": {
+			"type": "text",
+			"path": "text/bn_enemy_01.asabn"
+		},
+		"bn_enemy_02": {
+			"type": "text",
+			"path": "text/bn_enemy_02.asabn"
+		},
+		"bn_enemy_03": {
+			"type": "text",
+			"path": "text/bn_enemy_03.asabn"
+		},
+		"bn_enemy_04": {
+			"type": "text",
+			"path": "text/bn_enemy_04.asabn"
+		},
+		"bn_fade": {
+			"type": "text",
+			"path": "text/bn_fade.asabn"
+		},
+		"bn_gameclear": {
+			"type": "text",
+			"path": "text/bn_gameclear.asabn"
+		},
+		"bn_gameover": {
+			"type": "text",
+			"path": "text/bn_gameover.asabn"
+		},
+		"bn_pc": {
+			"type": "text",
+			"path": "text/bn_pc.asabn"
+		},
+		"bn_readygo": {
+			"type": "text",
+			"path": "text/bn_readygo.asabn"
+		},
+		"bn_result": {
+			"type": "text",
+			"path": "text/bn_result.asabn"
+		},
+		"bn_timeout": {
+			"type": "text",
+			"path": "text/bn_timeout.asabn"
+		},
+		"bn_timeup": {
+			"type": "text",
+			"path": "text/bn_timeup.asabn"
+		},
+		"bn_title": {
+			"type": "text",
+			"path": "text/bn_title.asabn"
+		},
+		"bn_wave": {
+			"type": "text",
+			"path": "text/bn_wave.asabn"
+		},
+		"json_bg_obj": {
+			"type": "text",
+			"path": "text/json_bg_obj.json"
+		},
+		"json_difficultyParameters": {
+			"type": "text",
+			"path": "text/json_difficultyParameters.json"
+		},
+		"json_num_result": {
+			"type": "text",
+			"path": "text/json_num_result.json"
+		},
+		"json_numbers_n": {
+			"type": "text",
+			"path": "text/json_numbers_n.json"
+		},
+		"json_numbers_n_red": {
+			"type": "text",
+			"path": "text/json_numbers_n_red.json"
+		},
+		"json_ui": {
+			"type": "text",
+			"path": "text/json_ui.json"
+		},
+		"json_map01": {
+			"type": "text",
+			"path": "text/map/json_map01.json"
+		},
+		"pj_before_the_start": {
+			"type": "text",
+			"path": "text/pj_before_the_start.asapj",
+			"global": true
+		},
+		"pj_nw_common": {
+			"type": "text",
+			"path": "text/pj_nw_common.asapj",
+			"global": true
+		},
+		"pj_nw_title": {
+			"type": "text",
+			"path": "text/pj_nw_title.asapj",
+			"global": true
+		},
+		"pj_obstacle": {
+			"type": "text",
+			"path": "text/pj_obstacle.asapj",
+			"global": true
+		},
+		"pj_surfing": {
+			"type": "text",
+			"path": "text/pj_surfing.asapj",
+			"global": true
+		},
+		"sk_before_the_start": {
+			"type": "text",
+			"path": "text/sk_before_the_start.asask"
+		},
+		"sk_description_text": {
+			"type": "text",
+			"path": "text/sk_description_text.asask"
+		},
+		"sk_nw_common": {
+			"type": "text",
+			"path": "text/sk_nw_common.asask"
+		},
+		"sk_nw_title": {
+			"type": "text",
+			"path": "text/sk_nw_title.asask"
+		},
+		"sk_obstacle": {
+			"type": "text",
+			"path": "text/sk_obstacle.asask"
+		},
+		"sk_surfing": {
+			"type": "text",
+			"path": "text/sk_surfing.asask"
+		},
+		"sk_surfing_02": {
+			"type": "text",
+			"path": "text/sk_surfing_02.asask"
+		},
+		"sk_title_logo": {
+			"type": "text",
+			"path": "text/sk_title_logo.asask"
+		},
+		"bgm_nico_wave": {
+			"type": "audio",
+			"path": "audio/bgm/bgm_nico_wave/bgm_nico_wave",
+			"systemId": "music",
+			"duration": 15119
+		},
+		"se_No8_RollCount2": {
+			"type": "audio",
+			"path": "audio/common/se_No8_RollCount2/se_No8_RollCount2",
+			"systemId": "sound",
+			"duration": 3995
+		},
+		"se_No8_RollCount_Finish": {
+			"type": "audio",
+			"path": "audio/common/se_No8_RollCount_Finish/se_No8_RollCount_Finish",
+			"systemId": "sound",
+			"duration": 665
+		},
+		"se_ready_start": {
+			"type": "audio",
+			"path": "audio/common/se_ready_start/se_ready_start",
+			"systemId": "sound",
+			"duration": 1701
+		},
+		"se_timeup": {
+			"type": "audio",
+			"path": "audio/common/se_timeup/se_timeup",
+			"systemId": "sound",
+			"duration": 1080
+		},
+		"se_No4_Miss": {
+			"type": "audio",
+			"path": "audio/se/se_No4_Miss/se_No4_Miss",
+			"systemId": "sound",
+			"duration": 1228
+		},
+		"se_character03": {
+			"type": "audio",
+			"path": "audio/se/se_character03/se_character03",
+			"systemId": "sound",
+			"duration": 640
+		},
+		"se_character16": {
+			"type": "audio",
+			"path": "audio/se/se_character16/se_character16",
+			"systemId": "sound",
+			"duration": 330
+		},
+		"se_comedy10": {
+			"type": "audio",
+			"path": "audio/se/se_comedy10/se_comedy10",
+			"systemId": "sound",
+			"duration": 501
+		},
+		"se_wave_tap": {
+			"type": "audio",
+			"path": "audio/se/se_wave_tap/se_wave_tap",
+			"systemId": "sound",
+			"duration": 474
+		}
+	},
+	"globalScripts": [
+		"node_modules/@akashic-extension/akashic-animation/lib/AABB.js",
+		"node_modules/@akashic-extension/akashic-animation/lib/Actor.js",
+		"node_modules/@akashic-extension/akashic-animation/lib/AnimationHandlerParams.js",
+		"node_modules/@akashic-extension/akashic-animation/lib/AnimeParams.js",
+		"node_modules/@akashic-extension/akashic-animation/lib/Attachment.js",
+		"node_modules/@akashic-extension/akashic-animation/lib/AttrId.js",
+		"node_modules/@akashic-extension/akashic-animation/lib/Bone.js",
+		"node_modules/@akashic-extension/akashic-animation/lib/BoneCellCollider.js",
+		"node_modules/@akashic-extension/akashic-animation/lib/BoneSet.js",
+		"node_modules/@akashic-extension/akashic-animation/lib/BoxVolume.js",
+		"node_modules/@akashic-extension/akashic-animation/lib/Cell.js",
+		"node_modules/@akashic-extension/akashic-animation/lib/CellAttachment.js",
+		"node_modules/@akashic-extension/akashic-animation/lib/CellAttachmentCollider.js",
+		"node_modules/@akashic-extension/akashic-animation/lib/CircleCollider.js",
+		"node_modules/@akashic-extension/akashic-animation/lib/CircleVolume.js",
+		"node_modules/@akashic-extension/akashic-animation/lib/Collider.js",
+		"node_modules/@akashic-extension/akashic-animation/lib/Container.js",
+		"node_modules/@akashic-extension/akashic-animation/lib/FinalizedCell.js",
+		"node_modules/@akashic-extension/akashic-animation/lib/Posture.js",
+		"node_modules/@akashic-extension/akashic-animation/lib/Resource.js",
+		"node_modules/@akashic-extension/akashic-animation/lib/Size2.js",
+		"node_modules/@akashic-extension/akashic-animation/lib/Skeleton.js",
+		"node_modules/@akashic-extension/akashic-animation/lib/Skin.js",
+		"node_modules/@akashic-extension/akashic-animation/lib/Vector2.js",
+		"node_modules/@akashic-extension/akashic-animation/lib/index.js",
+		"node_modules/@akashic-extension/akashic-timeline/lib/ActionType.js",
+		"node_modules/@akashic-extension/akashic-timeline/lib/Easing.js",
+		"node_modules/@akashic-extension/akashic-timeline/lib/Timeline.js",
+		"node_modules/@akashic-extension/akashic-timeline/lib/Tween.js",
+		"node_modules/@akashic-extension/akashic-timeline/lib/index.js"
+	],
+	"moduleMainScripts": {
+		"@akashic-extension/akashic-animation": "node_modules/@akashic-extension/akashic-animation/lib/index.js",
+		"@akashic-extension/akashic-timeline": "node_modules/@akashic-extension/akashic-timeline/lib/index.js"
+	},
+	"environment": {
+		"niconico": {
+			"supportedModes": [
+				"single",
+				"ranking"
+			]
+		}
+	}
+}

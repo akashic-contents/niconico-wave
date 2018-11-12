@@ -1,0 +1,16 @@
+﻿{
+	"difficultyParameterList": [
+		{
+			"minimumDifficulty": 1,
+			"startPixel":0
+		},
+		{
+			"minimumDifficulty": 5,
+			"startPixel":3200
+		},
+		{
+			"minimumDifficulty": 8,
+			"startPixel":5900
+		}
+	]
+}
