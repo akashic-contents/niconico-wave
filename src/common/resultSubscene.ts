@@ -168,13 +168,7 @@ export class ResultSubscene extends Subscene {
 		audioUtil.play(CommonSoundInfo.seSet.rollResultFinish);
 		this.isRolling = false;
 		this.setScoreLabelText();
-		if (gameUtil.isRankingMode()) {
-			// ランキングモードであれば、スコアを引数に終了する
-			this.scene.setTimeout(3000, () => {
-				// console.log("onRollEnd: setTimeout: scoreValue:"+this.scoreValue+".");
-				g.game.external.bidirection.currentSession.quit(this.scoreValue);
-			});
-		} else if (commonDefine.ENABLE_RETRY) {
+		if (commonDefine.ENABLE_RETRY) {
 			// リトライ操作を受け付ける場合
 			this.scene.pointDownCapture.handle(this, this.onTouch);
 		}

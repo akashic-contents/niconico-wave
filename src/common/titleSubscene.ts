@@ -82,12 +82,6 @@ export class TitleSubscene extends Subscene {
 	 * @override
 	 */
 	showContent(): void {
-		if (g.game.external.bidirection) {
-			// 双方向機能をONにする
-			// load()が呼ばれるとcurrentSessionが作成される
-			// console.log("showContent: bidirection.load.");
-			g.game.external.bidirection.load();
-		}
 		audioUtil.play(this.bgmName);
 		entityUtil.showEntity(this);
 	}

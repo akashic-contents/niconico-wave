@@ -369,18 +369,6 @@ export namespace gameUtil {
 	}
 
 	/**
-	 * ニコ割のランキングモードかどうか判定する関数
-	 * @return ランキングモードならばtrue
-	 */
-	export function isRankingMode(): boolean {
-		const external = g.game.external;
-		return external &&
-			external.bidirection &&
-			(external.bidirection.currentSession != null) &&
-			(external.bidirection.currentSession.sessionName === "orphan");
-	}
-
-	/**
 	 * 配列をシャッフルして新しい配列を返す
 	 * @param _array     シャッフルする配列
 	 * @param opt_random (optional)RandomGeneratorインスタンス
