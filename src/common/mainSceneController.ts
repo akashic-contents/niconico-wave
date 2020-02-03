@@ -134,8 +134,8 @@ export class MainSceneController extends SceneController {
 			// console.log("scene.message: e:" + JSON.stringify(e) + ".");
 			if (isCOESessionStartMessage(e)) {
 				parameters = (<COESessionStartMessage<RireGameParameters>>e.data).parameters;
+				return true;
 			}
-			return true;
 		});
 
 		return scene;
