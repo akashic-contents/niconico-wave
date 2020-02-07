@@ -23,10 +23,9 @@ export interface RireGameParameters {
 	nicowari?: boolean;
 
 	/**
-	 * ゲームの終了時間。省略された場合、そのゲームのデフォルト値になる。
-	 * falseを指定した場合、そのゲームが許容する最大値になる。
+	 * ゲームの開始から終了まで起動している時間。省略された場合、そのゲームのデフォルト値になる。
 	 */
-	gameTimeLimit?: number | boolean;
+	totalTimeLimit?: number;
 
 	/**
 	 * 難易度。省略された場合、そのゲームのデフォルト値になる。

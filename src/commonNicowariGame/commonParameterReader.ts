@@ -24,6 +24,8 @@ const LAUNCH_TYPE_SELF_STRING: string = "self";
 const LAUNCH_TYPE_LOTTERY_STRING: string = "lottery";
 /** 起動方法のみんなでプレイを判定する文字列 */
 const LAUNCH_TYPE_RANKING_STRING: string = "ranking";
+/** ゲームシーン以外のシーンで消費する時間 */
+const TIME_EXPECT_GAME_SCENE = 32;
 
 /**
  * 共通パラメータの読み込みクラス
@@ -40,10 +42,8 @@ export class CommonParameterReader {
 	static nicowari: boolean;
 	/** trueの場合は gameTimeLimit の値を使用するフラグ */
 	static useGameTimeLimit: boolean;
-	/** RireGameParameters.gameTimeLimit に相当する値 */
+	/** ゲームの制限時間(RireGameParameters.totalTimeLimitからTIME_EXPECT_GAME_SCENEを引いた値) */
 	static gameTimeLimit: number;
-	/** trueの場合はゲームが許容する最大の制限時間の値を使用するフラグ */
-	static useGameTimeMax: boolean;
 	/** trueの場合は difficulty の値を使用するフラグ */
 	static useDifficulty: boolean;
 	/** RireGameParameters.difficulty に相当する値 */
@@ -64,10 +64,9 @@ export class CommonParameterReader {
 		this.initialScene = "";
 		this.isInitialSceneGame = false;
 		this.muteAudio = false;
-		this.nicowari = true;
+		this.nicowari = false;
 		this.useGameTimeLimit = false;
 		this.gameTimeLimit = 0;
-		this.useGameTimeMax = false;
 		this.useDifficulty = false;
 		this.difficulty = 1;
 		this.launchType = LaunchType.NOTHING;
@@ -91,14 +90,9 @@ export class CommonParameterReader {
 			this.muteAudio = parameters.muteAudio;
 		}
 		// console.log("read: muteAudio:" + this.muteAudio + ".");
-		if (typeof parameters.gameTimeLimit === "number") {
+		if (typeof parameters.totalTimeLimit === "number") {
 			this.useGameTimeLimit = true;
-			this.gameTimeLimit = <number>parameters.gameTimeLimit;
-			this.useGameTimeMax = false;
-		} else if (typeof parameters.gameTimeLimit === "boolean") {
-			// booleanの場合に許容される値はfalseのみ
-			this.useGameTimeLimit = false;
-			this.useGameTimeMax = true;
+			this.gameTimeLimit = Math.max(0, <number>parameters.totalTimeLimit - TIME_EXPECT_GAME_SCENE);
 		}
 		// console.log("read: useGameTimeLimit:" + this.useGameTimeLimit + ", gameTimeLimit:" + this.gameTimeLimit + ".");
 		// console.log("read: useGameTimeMax:" + this.useGameTimeMax + ".");
