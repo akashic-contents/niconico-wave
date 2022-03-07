@@ -152,5 +152,5 @@ export abstract class GameBase extends g.E {
 	 * Scene#updateを起点とする処理から呼ばれるメソッド
 	 * ゲーム画面でない期間には呼ばれない。
 	 */
-	abstract onUpdate(): void;
+	abstract onUpdateScene(): void;
 }

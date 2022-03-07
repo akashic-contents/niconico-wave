@@ -168,8 +168,8 @@ export class WaveGame extends GameBase {
 		}
 		this.timerLabel.setTimeCount(timeLimit);
 
-		this.timerLabel.timeCaution.handle(this, this.onTimeCaution);
-		this.timerLabel.timeCautionCancel.handle(this, this.onTimeCautionCancel);
+		this.timerLabel.timeCaution.add(this.onTimeCaution, this);
+		this.timerLabel.timeCautionCancel.add(this.onTimeCautionCancel, this);
 		super.showContent();
 	}
 
@@ -182,9 +182,9 @@ export class WaveGame extends GameBase {
 		this.inGame = true;
 		this.obstacleManager.startScroll();
 		this.waveManager.startGame();
-		this.scene.pointDownCapture.handle(this, this.onTouch);
+		this.scene.onPointDownCapture.add(this.onTouch, this);
 		if (define.DEBUG_HOLD_TO_UP) {
-			this.scene.pointUpCapture.handle(this, this.onTouchOff);
+			this.scene.onPointUpCapture.add(this.onTouchOff, this);
 		}
 	}
 
@@ -195,8 +195,8 @@ export class WaveGame extends GameBase {
 	 */
 	hideContent(): void {
 		this.obstacleManager.hideContent();
-		this.timerLabel.timeCaution.removeAll(this);
-		this.timerLabel.timeCautionCancel.removeAll(this);
+		this.timerLabel.timeCaution.removeAll({ owner: this });
+		this.timerLabel.timeCautionCancel.removeAll({ owner: this });
 		super.hideContent();
 	}
 
@@ -205,10 +205,10 @@ export class WaveGame extends GameBase {
 	 * ゲーム画面でない期間には呼ばれない。
 	 * @override
 	 */
-	onUpdate(): void {
+	onUpdateScene(): void {
 		if (this.inGame) {
 			if (!this.inMiss) {
-				this.obstacleManager.onUpdate(
+				this.obstacleManager.onUpdateFrame(
 					this.waveManager.getScrollFactor());
 				this.checkScrolledMeter();
 			}
@@ -231,7 +231,7 @@ export class WaveGame extends GameBase {
 				}
 			}
 
-			this.waveManager.onUpdate();
+			this.waveManager.onUpdateFrame();
 			if (this.inMiss) {
 				if (this.waveManager.isTouchable()) {
 					// ミス処理終了時
@@ -308,9 +308,9 @@ export class WaveGame extends GameBase {
 	private finishGame(opt_isLifeZero: boolean = false): void {
 		this.inGame = false;
 		this.obstacleManager.stopScroll();
-		this.scene.pointDownCapture.removeAll(this);
+		this.scene.onPointDownCapture.removeAll({ owner: this });
 		if (define.DEBUG_HOLD_TO_UP) {
-			this.scene.pointUpCapture.removeAll(this);
+			this.scene.onPointUpCapture.removeAll({ owner: this });
 		}
 		gameUtil.setGameScore(this.scoreValue);
 		// 呼び出すトリガーによって共通フローのジングルアニメが変化する
@@ -324,7 +324,7 @@ export class WaveGame extends GameBase {
 	}
 
 	/**
-	 * Scene#pointDownCaptureのハンドラ
+	 * Scene#onPointDownCaptureのハンドラ
 	 * @param {g.PointDownEvent} _e イベントパラメータ
 	 * @return {boolean} ゲーム終了時はtrueを返す
 	 */
@@ -349,7 +349,7 @@ export class WaveGame extends GameBase {
 	}
 
 	/**
-	 * Scene#pointUpCaptureのハンドラ
+	 * Scene#onPointUpCaptureのハンドラ
 	 * @param {g.PointUpEvent} _e イベントパラメータ
 	 * @return {boolean} ゲーム終了時はtrueを返す
 	 */

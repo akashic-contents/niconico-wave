@@ -54,7 +54,7 @@ export class GameSubscene extends Subscene {
 			new asaEx.Actor(this.scene, CommonAsaInfo.nwCommon.pj);
 		jingle.x = game.width / 2;
 		jingle.y = game.height / 2;
-		jingle.update.handle(spriteUtil.makeActorUpdater(jingle));
+		jingle.onUpdate.add(spriteUtil.makeActorUpdater(jingle));
 		jingle.hide();
 		entityUtil.appendEntity(jingle, this);
 
@@ -112,14 +112,14 @@ export class GameSubscene extends Subscene {
 	 * Scene#updateを起点とする処理から呼ばれる
 	 * @override
 	 */
-	onUpdate(): void {
+	onUpdateSubscene(): void {
 		if (this.inPreGameGuide) {
 			if (this.gameContent.onUpdatePreGameGuide()) {
 				this.inPreGameGuide = false;
 				this.startReady();
 			}
 		}
-		this.gameContent.onUpdate();
+		this.gameContent.onUpdateScene();
 	}
 
 	/**
@@ -149,7 +149,7 @@ export class GameSubscene extends Subscene {
 	private startReady(): void {
 		if (this.gameContent.needsReadyGoJingle()) {
 			this.asaJingle.play(CommonAsaInfo.nwCommon.anim.readyGo, 0, false, 1);
-			this.asaJingle.ended.handle(this, this.onReadyEnd);
+			this.asaJingle.ended.add(this.onReadyEnd, this);
 			entityUtil.showEntity(this.asaJingle);
 			audioUtil.play(CommonSoundInfo.seSet.ready);
 		} else {
@@ -173,13 +173,12 @@ export class GameSubscene extends Subscene {
 	 */
 	private startGame(): void {
 		audioUtil.play(this.gameContent.getMainBgmName());
-		this.gameContent.timeCaution.handle(this, this.onTimeCaution);
-		this.gameContent.timeCautionCancel.handle(
-			this, this.onTimeCautionCancel);
-		this.gameContent.timeup.handle(this, this.onTimeup);
-		this.gameContent.timeout.handle(this, this.onTimeout);
-		this.gameContent.gameClear.handle(this, this.onGameClear);
-		this.gameContent.gameOver.handle(this, this.onGameOver);
+		this.gameContent.timeCaution.add(this.onTimeCaution, this);
+		this.gameContent.timeCautionCancel.add(this.onTimeCautionCancel, this);
+		this.gameContent.timeup.add(this.onTimeup, this);
+		this.gameContent.timeout.add(this.onTimeout, this);
+		this.gameContent.gameClear.add(this.onGameClear, this);
+		this.gameContent.gameOver.add(this.onGameOver, this);
 		this.gameContent.startGame();
 	}
 
@@ -246,17 +245,16 @@ export class GameSubscene extends Subscene {
 	private finishGame(_jingleAnimName: string): void {
 		audioUtil.stop(this.gameContent.getMainBgmName());
 		this.cautionFill.stopBlink();
-		this.gameContent.timeCaution.removeAll(this);
-		this.gameContent.timeCautionCancel.removeAll(this);
-		this.gameContent.timeup.removeAll(this);
-		this.gameContent.timeout.removeAll(this);
-		this.gameContent.gameClear.removeAll(this);
-		this.gameContent.gameOver.removeAll(this);
+		this.gameContent.timeCaution.removeAll({ owner: this});
+		this.gameContent.timeCautionCancel.removeAll({ owner: this });
+		this.gameContent.timeup.removeAll({ owner: this });
+		this.gameContent.timeout.removeAll({ owner: this });
+		this.gameContent.gameClear.removeAll({ owner: this });
+		this.gameContent.gameOver.removeAll({ owner: this });
 		this.asaJingle.play(_jingleAnimName, 0, false, 1, true);
 		entityUtil.showEntity(this.asaJingle);
 		audioUtil.play(CommonSoundInfo.seSet.timeup);
-		this.scene.setTimeout(
-			commonDefine.TIMEUP_WAIT, this, this.onTimeupEnd);
+		this.scene.setTimeout(this.onTimeupEnd, commonDefine.TIMEUP_WAIT, this);
 	}
 
 	/**

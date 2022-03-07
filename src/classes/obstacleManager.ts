@@ -198,7 +198,7 @@ export class ObstacleManager extends g.E {
 	 * フレームごとの処理を行うメソッド
 	 * @param {number} _scrollFactor スクロール加速割合（0～1）
 	 */
-	onUpdate(_scrollFactor: number): void {
+	onUpdateFrame(_scrollFactor: number): void {
 		if (this.isScrolling) {
 			this.incrementScrollFrame(_scrollFactor);
 			entityUtil.setX(
@@ -268,7 +268,7 @@ export class ObstacleManager extends g.E {
 
 		const placeInfos: ObstaclePlaceInfo[] = [];
 		const objects = tiledUtil.getObjects(
-			MiscAssetInfo.mapData.name, undefined, false, true
+			MiscAssetInfo.mapData.name, false, true
 		);
 		const iEnd = objects.length;
 		for (let i = 0; i < iEnd; ++i) {

@@ -45,7 +45,7 @@ export class TitleSubscene extends Subscene {
 			new asaEx.Actor(this.scene, CommonAsaInfo.nwTitle.pj);
 		title.x = game.width / 2;
 		title.y = game.height / 2;
-		title.update.handle(spriteUtil.makeActorUpdater(title));
+		title.onUpdate.add(spriteUtil.makeActorUpdater(title));
 		title.hide();
 		entityUtil.appendEntity(title, this);
 
@@ -96,15 +96,12 @@ export class TitleSubscene extends Subscene {
 		this.asaTitle.play(CommonAsaInfo.nwTitle.anim.title, 0, false, 1);
 		entityUtil.showEntity(this.asaTitle);
 		if (this.autoNext) {
-			this.scene.setTimeout(
-				commonDefine.TITLE_WAIT, this, this.onTimeout);
+			this.scene.setTimeout(this.onTimeout, commonDefine.TITLE_WAIT, this);
 			if (commonDefine.TOUCH_SKIP_WAIT > 0) {
-				this.scene.setTimeout(
-					commonDefine.TOUCH_SKIP_WAIT, this,
-					this.onTimeoutToTouch);
+				this.scene.setTimeout(this.onTimeoutToTouch, commonDefine.TOUCH_SKIP_WAIT, this);
 			}
 		} else {
-			this.asaTitle.ended.handle(this, this.onTitleEnd);
+			this.asaTitle.ended.add(this.onTitleEnd, this);
 		}
 	}
 
@@ -112,7 +109,7 @@ export class TitleSubscene extends Subscene {
 	 * Scene#updateを起点とする処理から呼ばれる
 	 * @override
 	 */
-	onUpdate(): void {
+	onUpdateSubscene(): void {
 		// NOP
 	}
 
@@ -124,7 +121,7 @@ export class TitleSubscene extends Subscene {
 	stopContent(): void {
 		// console.log("TitleSubscene.stopContent: inContent:"+this.inContent+".");
 		this.inContent = false;
-		this.scene.pointDownCapture.removeAll(this);
+		this.scene.onPointDownCapture.removeAll({owner: this});
 	}
 
 	/**
@@ -156,7 +153,7 @@ export class TitleSubscene extends Subscene {
 	private onTimeoutToTouch(): void {
 		// console.log("TitleSubscene.onTimeoutToTouch: inContent:"+this.inContent+".");
 		if (this.inContent) {
-			this.scene.pointDownCapture.handle(this, this.onTouch);
+			this.scene.onPointDownCapture.add(this.onTouch, this);
 		}
 	}
 
@@ -167,13 +164,13 @@ export class TitleSubscene extends Subscene {
 	 */
 	private onTitleEnd(): boolean {
 		if (this.inContent) {
-			this.scene.pointDownCapture.handle(this, this.onTouch);
+			this.scene.onPointDownCapture.add(this.onTouch, this);
 		}
 		return true;
 	}
 
 	/**
-	 * Scene#pointDownCaptureのハンドラ
+	 * Scene#onPointDownCaptureのハンドラ
 	 * 次のシーンへの遷移を要求する
 	 * @param {g.PointDownEvent} e イベントパラメータ
 	 * @return {boolean} trueを返し、ハンドラ登録を解除する
