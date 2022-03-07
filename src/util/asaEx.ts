@@ -518,7 +518,6 @@ export namespace asaEx {
 			return null;
 		}
 		let res: AnimBoneTable = null;
-		// const pjData: AsaPjData = _scene.asset.getJSONContentById(_pjName);
 		const pjData: AsaPjData = g.game.scene().asset.getJSONContentById(_pjName);
 		if ((!!pjData.contents.userData) &&
 			(!!pjData.contents.userData.combinationInfo)) {
