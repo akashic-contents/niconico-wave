@@ -205,10 +205,10 @@ export class WaveGame extends GameBase {
 	 * ゲーム画面でない期間には呼ばれない。
 	 * @override
 	 */
-	onUpdateScene(): void {
+	handleUpdate(): void {
 		if (this.inGame) {
 			if (!this.inMiss) {
-				this.obstacleManager.onUpdateFrame(
+				this.obstacleManager.handleUpdate(
 					this.waveManager.getScrollFactor());
 				this.checkScrolledMeter();
 			}
@@ -231,7 +231,7 @@ export class WaveGame extends GameBase {
 				}
 			}
 
-			this.waveManager.onUpdateFrame();
+			this.waveManager.handleUpdate();
 			if (this.inMiss) {
 				if (this.waveManager.isTouchable()) {
 					// ミス処理終了時

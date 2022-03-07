@@ -105,7 +105,7 @@ export class InformationSubscene extends Subscene {
 	 * Scene#updateを起点とする処理から呼ばれる
 	 * @override
 	 */
-	onUpdateSubscene(): void {
+	handleUpdate(): void {
 		// NOP
 	}
 

@@ -118,7 +118,7 @@ export class ResultSubscene extends Subscene {
 	 * Scene#updateを起点とする処理から呼ばれる
 	 * @override
 	 */
-	onUpdateSubscene(): void {
+	handleUpdate(): void {
 		if (this.isRolling) {
 			this.setScoreLabelText();
 		}

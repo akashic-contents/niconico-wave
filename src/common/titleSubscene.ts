@@ -109,7 +109,7 @@ export class TitleSubscene extends Subscene {
 	 * Scene#updateを起点とする処理から呼ばれる
 	 * @override
 	 */
-	onUpdateSubscene(): void {
+	handleUpdate(): void {
 		// NOP
 	}
 

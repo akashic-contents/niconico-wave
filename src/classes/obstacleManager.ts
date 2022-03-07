@@ -198,7 +198,7 @@ export class ObstacleManager extends g.E {
 	 * フレームごとの処理を行うメソッド
 	 * @param {number} _scrollFactor スクロール加速割合（0～1）
 	 */
-	onUpdateFrame(_scrollFactor: number): void {
+	handleUpdate(_scrollFactor: number): void {
 		if (this.isScrolling) {
 			this.incrementScrollFrame(_scrollFactor);
 			entityUtil.setX(

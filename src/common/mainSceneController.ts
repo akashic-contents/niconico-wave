@@ -237,7 +237,7 @@ export class MainSceneController extends SceneController {
 	 * @override
 	 */
 	protected onUpdate(_scene: g.Scene): boolean {
-		this.currentSubscene.onUpdateSubscene();
+		this.currentSubscene.handleUpdate();
 		return false;
 	}
 

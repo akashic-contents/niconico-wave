@@ -112,14 +112,14 @@ export class GameSubscene extends Subscene {
 	 * Scene#updateを起点とする処理から呼ばれる
 	 * @override
 	 */
-	onUpdateSubscene(): void {
+	handleUpdate(): void {
 		if (this.inPreGameGuide) {
 			if (this.gameContent.onUpdatePreGameGuide()) {
 				this.inPreGameGuide = false;
 				this.startReady();
 			}
 		}
-		this.gameContent.onUpdateScene();
+		this.gameContent.handleUpdate();
 	}
 
 	/**

@@ -182,7 +182,7 @@ export class WaveManager extends g.E {
 	/**
 	 * フレームごとの処理を行うメソッド
 	 */
-	onUpdateFrame(): void {
+	handleUpdate(): void {
 		if (this.pcState === PcState.NORMAL) {
 			this.updateInNormal();
 		} else {
