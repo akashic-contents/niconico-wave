@@ -168,8 +168,8 @@ export class WaveGame extends GameBase {
 		}
 		this.timerLabel.setTimeCount(timeLimit);
 
-		this.timerLabel.timeCaution.add(this.onTimeCaution, this);
-		this.timerLabel.timeCautionCancel.add(this.onTimeCautionCancel, this);
+		this.timerLabel.timeCaution.add(this.handleTimeCaution, this);
+		this.timerLabel.timeCautionCancel.add(this.handleTimeCautionCancel, this);
 		super.showContent();
 	}
 
@@ -182,9 +182,9 @@ export class WaveGame extends GameBase {
 		this.inGame = true;
 		this.obstacleManager.startScroll();
 		this.waveManager.startGame();
-		this.scene.onPointDownCapture.add(this.onTouch, this);
+		this.scene.onPointDownCapture.add(this.handleTouch, this);
 		if (define.DEBUG_HOLD_TO_UP) {
-			this.scene.onPointUpCapture.add(this.onTouchOff, this);
+			this.scene.onPointUpCapture.add(this.handleTouchOff, this);
 		}
 	}
 
@@ -248,14 +248,14 @@ export class WaveGame extends GameBase {
 	/**
 	 * TimerLabel#timeCautionのハンドラ
 	 */
-	private onTimeCaution(): void {
+	private handleTimeCaution(): void {
 		this.timeCaution.fire();
 	}
 
 	/**
 	 * TimerLabel#timeCautionCancelのハンドラ
 	 */
-	private onTimeCautionCancel(): void {
+	private handleTimeCautionCancel(): void {
 		this.timeCautionCancel.fire();
 	}
 
@@ -328,7 +328,7 @@ export class WaveGame extends GameBase {
 	 * @param {g.PointDownEvent} _e イベントパラメータ
 	 * @return {boolean} ゲーム終了時はtrueを返す
 	 */
-	private onTouch(_e: g.PointDownEvent): boolean {
+	private handleTouch(_e: g.PointDownEvent): boolean {
 		if (!this.inGame) {
 			return true;
 		}
@@ -353,7 +353,7 @@ export class WaveGame extends GameBase {
 	 * @param {g.PointUpEvent} _e イベントパラメータ
 	 * @return {boolean} ゲーム終了時はtrueを返す
 	 */
-	private onTouchOff(_e: g.PointUpEvent): boolean {
+	private handleTouchOff(_e: g.PointUpEvent): boolean {
 		if (!this.inGame) {
 			return true;
 		}

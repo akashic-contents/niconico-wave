@@ -149,7 +149,7 @@ export class GameSubscene extends Subscene {
 	private startReady(): void {
 		if (this.gameContent.needsReadyGoJingle()) {
 			this.asaJingle.play(CommonAsaInfo.nwCommon.anim.readyGo, 0, false, 1);
-			this.asaJingle.ended.add(this.onReadyEnd, this);
+			this.asaJingle.ended.add(this.handleReadyEnd, this);
 			entityUtil.showEntity(this.asaJingle);
 			audioUtil.play(CommonSoundInfo.seSet.ready);
 		} else {
@@ -162,7 +162,7 @@ export class GameSubscene extends Subscene {
 	 * ReadyGoアニメの終了時用
 	 * @return {boolean} trueを返し、ハンドラ登録を解除する
 	 */
-	private onReadyEnd(): boolean {
+	private handleReadyEnd(): boolean {
 		entityUtil.hideEntity(this.asaJingle);
 		this.startGame();
 		return true;
@@ -173,12 +173,12 @@ export class GameSubscene extends Subscene {
 	 */
 	private startGame(): void {
 		audioUtil.play(this.gameContent.getMainBgmName());
-		this.gameContent.timeCaution.add(this.onTimeCaution, this);
-		this.gameContent.timeCautionCancel.add(this.onTimeCautionCancel, this);
-		this.gameContent.timeup.add(this.onTimeup, this);
-		this.gameContent.timeout.add(this.onTimeout, this);
-		this.gameContent.gameClear.add(this.onGameClear, this);
-		this.gameContent.gameOver.add(this.onGameOver, this);
+		this.gameContent.timeCaution.add(this.handleTimeCaution, this);
+		this.gameContent.timeCautionCancel.add(this.handleTimeCautionCancel, this);
+		this.gameContent.timeup.add(this.handleTimeup, this);
+		this.gameContent.timeout.add(this.handleTimeout, this);
+		this.gameContent.gameClear.add(this.handleGameClear, this);
+		this.gameContent.gameOver.add(this.handleGameOver, this);
 		this.gameContent.startGame();
 	}
 
@@ -186,7 +186,7 @@ export class GameSubscene extends Subscene {
 	 * GaemBase#timeCautionのハンドラ
 	 * 残り時間警告の赤点滅を開始する
 	 */
-	private onTimeCaution(): void {
+	private handleTimeCaution(): void {
 		this.cautionFill.startBlink();
 	}
 
@@ -194,7 +194,7 @@ export class GameSubscene extends Subscene {
 	 * GaemBase#timeCautionCancelのハンドラ
 	 * 残り時間警告の赤点滅を中断する
 	 */
-	private onTimeCautionCancel(): void {
+	private handleTimeCautionCancel(): void {
 		this.cautionFill.stopBlink();
 	}
 
@@ -203,7 +203,7 @@ export class GameSubscene extends Subscene {
 	 * タイムアップ演出を開始する
 	 * @return {boolean} trueを返し、ハンドラ登録を解除する
 	 */
-	private onTimeup(): boolean {
+	private handleTimeup(): boolean {
 		this.finishGame(CommonAsaInfo.nwCommon.anim.timeup);
 		return true;
 	}
@@ -213,7 +213,7 @@ export class GameSubscene extends Subscene {
 	 * タイムアウト演出を開始する
 	 * @return {boolean} trueを返し、ハンドラ登録を解除する
 	 */
-	private onTimeout(): boolean {
+	private handleTimeout(): boolean {
 		this.finishGame(CommonAsaInfo.nwCommon.anim.timeout);
 		return true;
 	}
@@ -223,7 +223,7 @@ export class GameSubscene extends Subscene {
 	 * ゲームクリア演出を開始する
 	 * @return {boolean} trueを返し、ハンドラ登録を解除する
 	 */
-	private onGameClear(): boolean {
+	private handleGameClear(): boolean {
 		this.finishGame(CommonAsaInfo.nwCommon.anim.gameClear);
 		return true;
 	}
@@ -233,7 +233,7 @@ export class GameSubscene extends Subscene {
 	 * ゲームオーバー演出を開始する
 	 * @return {boolean} trueを返し、ハンドラ登録を解除する
 	 */
-	private onGameOver(): boolean {
+	private handleGameOver(): boolean {
 		this.finishGame(CommonAsaInfo.nwCommon.anim.gameOver);
 		return true;
 	}
@@ -254,7 +254,7 @@ export class GameSubscene extends Subscene {
 		this.asaJingle.play(_jingleAnimName, 0, false, 1, true);
 		entityUtil.showEntity(this.asaJingle);
 		audioUtil.play(CommonSoundInfo.seSet.timeup);
-		this.scene.setTimeout(this.onTimeupEnd, commonDefine.TIMEUP_WAIT, this);
+		this.scene.setTimeout(this.handleTimeupEnd, commonDefine.TIMEUP_WAIT, this);
 	}
 
 	/**
@@ -262,7 +262,7 @@ export class GameSubscene extends Subscene {
 	 * Timeup演出の終了時用
 	 * 次のシーンへの遷移を要求する
 	 */
-	private onTimeupEnd(): void {
+	private handleTimeupEnd(): void {
 		this.requestedNextSubscene.fire();
 	}
 }

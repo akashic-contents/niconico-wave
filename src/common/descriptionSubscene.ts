@@ -83,12 +83,12 @@ export class DescriptionSubscene extends Subscene {
 	startContent(): void {
 		this.inContent = true;
 		if (this.autoNext) {
-			this.scene.setTimeout(this.onTimeout, commonDefine.DESCRIPTION_WAIT, this);
+			this.scene.setTimeout(this.handleTimeout, commonDefine.DESCRIPTION_WAIT, this);
 			if (commonDefine.TOUCH_SKIP_WAIT > 0) {
-				this.scene.setTimeout(this.onTimeoutToTouch, commonDefine.TOUCH_SKIP_WAIT, this);
+				this.scene.setTimeout(this.handleTimeoutToTouch, commonDefine.TOUCH_SKIP_WAIT, this);
 			}
 		} else {
-			this.scene.onPointDownCapture.add(this.onTouch, this);
+			this.scene.onPointDownCapture.add(this.handleTouch, this);
 		}
 	}
 
@@ -125,7 +125,7 @@ export class DescriptionSubscene extends Subscene {
 	 * Scene#setTimeoutのハンドラ
 	 * 次のシーンへの遷移を要求する
 	 */
-	private onTimeout(): void {
+	private handleTimeout(): void {
 		// console.log("DescriptionSubscene.onTimeout: inContent:"+this.inContent+".");
 		if (this.inContent) {
 			this.requestedNextSubscene.fire();
@@ -136,10 +136,10 @@ export class DescriptionSubscene extends Subscene {
 	 * Scene#setTimeoutのハンドラ
 	 * タッチ受付を開始する
 	 */
-	private onTimeoutToTouch(): void {
+	private handleTimeoutToTouch(): void {
 		// console.log("DescriptionSubscene.onTimeoutToTouch: inContent:"+this.inContent+".");
 		if (this.inContent) {
-			this.scene.onPointDownCapture.add(this.onTouch, this);
+			this.scene.onPointDownCapture.add(this.handleTouch, this);
 		}
 	}
 
@@ -149,7 +149,7 @@ export class DescriptionSubscene extends Subscene {
 	 * @param {g.PointDownEvent} _e イベントパラメータ
 	 * @return {boolean} trueを返し、ハンドラ登録を解除する
 	 */
-	private onTouch(_e: g.PointDownEvent): boolean {
+	private handleTouch(_e: g.PointDownEvent): boolean {
 		// console.log("DescriptionSubscene.onTouch: inContent:"+this.inContent+".");
 		if (this.inContent) {
 			this.requestedNextSubscene.fire();

@@ -96,12 +96,12 @@ export class TitleSubscene extends Subscene {
 		this.asaTitle.play(CommonAsaInfo.nwTitle.anim.title, 0, false, 1);
 		entityUtil.showEntity(this.asaTitle);
 		if (this.autoNext) {
-			this.scene.setTimeout(this.onTimeout, commonDefine.TITLE_WAIT, this);
+			this.scene.setTimeout(this.handleTimeout, commonDefine.TITLE_WAIT, this);
 			if (commonDefine.TOUCH_SKIP_WAIT > 0) {
-				this.scene.setTimeout(this.onTimeoutToTouch, commonDefine.TOUCH_SKIP_WAIT, this);
+				this.scene.setTimeout(this.handleTimeoutToTouch, commonDefine.TOUCH_SKIP_WAIT, this);
 			}
 		} else {
-			this.asaTitle.ended.add(this.onTitleEnd, this);
+			this.asaTitle.ended.add(this.handleTitleEnd, this);
 		}
 	}
 
@@ -139,7 +139,7 @@ export class TitleSubscene extends Subscene {
 	 * Scene#setTimeoutのハンドラ
 	 * 次のシーンへの遷移を要求する
 	 */
-	private onTimeout(): void {
+	private handleTimeout(): void {
 		// console.log("TitleSubscene.onTimeout: inContent:"+this.inContent+".");
 		if (this.inContent) {
 			this.requestedNextSubscene.fire();
@@ -150,10 +150,10 @@ export class TitleSubscene extends Subscene {
 	 * Scene#setTimeoutのハンドラ
 	 * タッチ受付を開始する
 	 */
-	private onTimeoutToTouch(): void {
+	private handleTimeoutToTouch(): void {
 		// console.log("TitleSubscene.onTimeoutToTouch: inContent:"+this.inContent+".");
 		if (this.inContent) {
-			this.scene.onPointDownCapture.add(this.onTouch, this);
+			this.scene.onPointDownCapture.add(this.handleTouch, this);
 		}
 	}
 
@@ -162,9 +162,9 @@ export class TitleSubscene extends Subscene {
 	 * タイトルロゴアニメの終了時用
 	 * @return {boolean} trueを返し、ハンドラ登録を解除する
 	 */
-	private onTitleEnd(): boolean {
+	private handleTitleEnd(): boolean {
 		if (this.inContent) {
-			this.scene.onPointDownCapture.add(this.onTouch, this);
+			this.scene.onPointDownCapture.add(this.handleTouch, this);
 		}
 		return true;
 	}
@@ -175,7 +175,7 @@ export class TitleSubscene extends Subscene {
 	 * @param {g.PointDownEvent} e イベントパラメータ
 	 * @return {boolean} trueを返し、ハンドラ登録を解除する
 	 */
-	private onTouch(_e: g.PointDownEvent): boolean {
+	private handleTouch(_e: g.PointDownEvent): boolean {
 		// console.log("TitleSubscene.onTouch: inContent:"+this.inContent+".");
 		if (this.inContent) {
 			this.requestedNextSubscene.fire();

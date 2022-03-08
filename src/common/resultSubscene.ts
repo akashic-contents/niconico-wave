@@ -111,7 +111,7 @@ export class ResultSubscene extends Subscene {
 		this.setScoreLabelText();
 		entityUtil.showEntity(this.scoreLabel);
 		entityUtil.showEntity(this.asaResult);
-		this.scene.setTimeout(this.onRollEnd, commonDefine.RESULT_ROLL_WAIT, this);
+		this.scene.setTimeout(this.handleRollEnd, commonDefine.RESULT_ROLL_WAIT, this);
 	}
 
 	/**
@@ -161,14 +161,14 @@ export class ResultSubscene extends Subscene {
 	 * Scene#setTimeoutのハンドラ
 	 * ロール演出の終了時用
 	 */
-	private onRollEnd(): void {
+	private handleRollEnd(): void {
 		audioUtil.stop(CommonSoundInfo.seSet.rollResult);
 		audioUtil.play(CommonSoundInfo.seSet.rollResultFinish);
 		this.isRolling = false;
 		this.setScoreLabelText();
 		if (commonDefine.ENABLE_RETRY) {
 			// リトライ操作を受け付ける場合
-			this.scene.onPointDownCapture.add(this.onTouch, this);
+			this.scene.onPointDownCapture.add(this.handleTouch, this);
 		}
 	}
 
@@ -178,7 +178,7 @@ export class ResultSubscene extends Subscene {
 	 * @param {g.PointDownEvent} _e イベントパラメータ
 	 * @return {boolean} trueを返し、ハンドラ登録を解除する
 	 */
-	private onTouch(_e: g.PointDownEvent): boolean {
+	private handleTouch(_e: g.PointDownEvent): boolean {
 		this.requestedNextSubscene.fire();
 		return true;
 	}
