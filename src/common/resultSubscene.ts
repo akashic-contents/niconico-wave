@@ -54,14 +54,13 @@ export class ResultSubscene extends Subscene {
 			new asaEx.Actor(this.scene, CommonAsaInfo.nwCommon.pj);
 		result.x = game.width / 2;
 		result.y = (game.height / 2) + this.offsetY;
-		result.update.handle(spriteUtil.makeActorUpdater(result));
+		result.onUpdate.add(spriteUtil.makeActorUpdater(result));
 		result.hide();
 		entityUtil.appendEntity(result, this);
 
 		this.scoreValue = 0;
 
-		const font = gameUtil.createNumFontWithAssetInfo(
-			CommonAssetInfo.numResult, this.scene.assets);
+		const font = gameUtil.createNumFontWithAssetInfo(CommonAssetInfo.numResult);
 		const score = this.scoreLabel = entityUtil.createNumLabel(
 			this.scene, font, commonDefine.RESULT_SCORE_DIGIT);
 		entityUtil.moveNumLabelTo(score, 320 + ((game.width - 480) / 2), 84 + this.offsetY);
@@ -112,15 +111,14 @@ export class ResultSubscene extends Subscene {
 		this.setScoreLabelText();
 		entityUtil.showEntity(this.scoreLabel);
 		entityUtil.showEntity(this.asaResult);
-		this.scene.setTimeout(
-			commonDefine.RESULT_ROLL_WAIT, this, this.onRollEnd);
+		this.scene.setTimeout(this.handleRollEnd, commonDefine.RESULT_ROLL_WAIT, this);
 	}
 
 	/**
 	 * Scene#updateを起点とする処理から呼ばれる
 	 * @override
 	 */
-	onUpdate(): void {
+	handleUpdate(): void {
 		if (this.isRolling) {
 			this.setScoreLabelText();
 		}
@@ -152,9 +150,9 @@ export class ResultSubscene extends Subscene {
 		let value = this.scoreValue;
 		const len = String(value).length;
 		if (this.isRolling) { // 回転中はスコア桁内でランダム
-			value = this.scene.game.random[0].get(
-				Math.pow(10, len - 1),
-				Math.pow(10, len) - 1);
+			const min = Math.pow(10, len - 1);
+			const max = Math.pow(10, len) - 1;
+			value = Math.floor(this.scene.game.random.generate() * (max - min) + min);
 		}
 		entityUtil.setLabelText(this.scoreLabel, String(value));
 	}
@@ -163,24 +161,24 @@ export class ResultSubscene extends Subscene {
 	 * Scene#setTimeoutのハンドラ
 	 * ロール演出の終了時用
 	 */
-	private onRollEnd(): void {
+	private handleRollEnd(): void {
 		audioUtil.stop(CommonSoundInfo.seSet.rollResult);
 		audioUtil.play(CommonSoundInfo.seSet.rollResultFinish);
 		this.isRolling = false;
 		this.setScoreLabelText();
 		if (commonDefine.ENABLE_RETRY) {
 			// リトライ操作を受け付ける場合
-			this.scene.pointDownCapture.handle(this, this.onTouch);
+			this.scene.onPointDownCapture.add(this.handleTouch, this);
 		}
 	}
 
 	/**
-	 * Scene#pointDownCaptureのハンドラ
+	 * Scene#onPointDownCaptureのハンドラ
 	 * 次のシーンへの遷移を要求する
 	 * @param {g.PointDownEvent} _e イベントパラメータ
 	 * @return {boolean} trueを返し、ハンドラ登録を解除する
 	 */
-	private onTouch(_e: g.PointDownEvent): boolean {
+	private handleTouch(_e: g.PointDownEvent): boolean {
 		this.requestedNextSubscene.fire();
 		return true;
 	}
@@ -193,8 +191,12 @@ export class ResultSubscene extends Subscene {
 		const randIndex = gameUtil.getRandomLessThanMax(this.tipsImgList.length);
 		const asset = this.tipsImgList[randIndex];
 		const size = commonDefine.TIPS_IMG_SIZE;
-		const spr = new g.Sprite(
-			{ scene: this.scene, src: this.scene.assets[asset], width: size.width, height: size.height });
+		const spr = new g.Sprite({
+			scene: this.scene,
+			src: this.scene.asset.getImageById(asset),
+			width: size.width,
+			height: size.height
+		});
 		spr.moveTo(commonDefine.TIPS_IMG_POS);
 		entityUtil.appendEntity(spr, this);
 	}

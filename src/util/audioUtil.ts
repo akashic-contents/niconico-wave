@@ -1,5 +1,4 @@
 import { SoundInfoType } from "../commonTypes/soundInfoType";
-import { AssetMapType } from "./gameUtil";
 
 /** 再生中の音声管理情報 */
 interface PlayingAudioInfo {
@@ -63,21 +62,15 @@ export namespace audioUtil {
 	/**
 	 * 指定した音声アセットの g.AudioAsset#inUse を呼ぶ
 	 * @param _soundId   対象の音声アセット名
-	 * @param opt_assets (optional)g.Assetのマップ
-	 * （省略時はg.game.scene().assetsを使用する）
 	 * @return           inUseの戻り値
 	 */
-	export function inUse(
-		_soundId: string, opt_assets?: AssetMapType): boolean {
+	export function inUse(_soundId: string): boolean {
 		if (!_soundId) {
 			return false;
 		}
-		if (!opt_assets) {
-			opt_assets = g.game.scene().assets;
-		}
-		const asset: g.AudioAsset = <g.AudioAsset>opt_assets[_soundId];
+		const asset: g.AudioAsset = g.game.scene().asset.getAudioById(_soundId);
 		if (!asset) {
-			g.game.logger.error("AudioUtil.inUse: not found " + _soundId + " in opt_assets.");
+			console.error("AudioUtil.inUse: not found " + _soundId + " in assets.");
 			return false;
 		}
 		return asset.inUse();
@@ -86,77 +79,59 @@ export namespace audioUtil {
 	/**
 	 * 指定した音声アセットの g.AudioAsset#play を呼ぶ
 	 * @param _soundId   対象の音声アセット名
-	 * @param opt_assets (optional)g.Assetのマップ
-	 * （省略時はg.game.scene().assetsを使用する）
 	 * @return            playの戻り値
 	 */
-	export function play(
-		_soundId: string, opt_assets?: AssetMapType): g.AudioPlayer {
+	export function play(_soundId: string): g.AudioPlayer {
 		if (muted) {
 			return null;
 		}
 		if (!_soundId) {
 			return null;
 		}
-		if (!opt_assets) {
-			opt_assets = g.game.scene().assets;
-		}
-		const asset: g.AudioAsset = <g.AudioAsset>opt_assets[_soundId];
+		const asset: g.AudioAsset = g.game.scene().asset.getAudioById(_soundId);
 		if (!asset) {
-			g.game.logger.error("AudioUtil.play: not found " + _soundId + " in opt_assets.");
+			console.error("AudioUtil.play: not found " + _soundId + " in assets.");
 			return null;
 		}
 		const info = getPlayingAudioInfo(asset);
 		if (info === null) {
-			playingAudioInfoList.push({ audioAsset: asset, lastPlayStartTime: Date.now() });
+			playingAudioInfoList.push({ audioAsset: asset, lastPlayStartTime: g.game.getCurrentTime() });
 		} else {
-			info.lastPlayStartTime = Date.now();
+			info.lastPlayStartTime = g.game.getCurrentTime();
 		}
 		return asset.play();
 	}
 	/**
 	 * 指定した音声アセットの g.AudioAsset#stop を呼ぶ
 	 * @param _soundId   対象の音声アセット名
-	 * @param opt_assets (optional)g.Assetのマップ
-	 * （省略時はg.game.scene().assetsを使用する）
 	 */
-	export function stop(
-		_soundId: string, opt_assets?: AssetMapType): void {
+	export function stop(_soundId: string): void {
 		if (!_soundId) {
 			return;
 		}
-		if (!opt_assets) {
-			opt_assets = g.game.scene().assets;
-		}
-		const asset: g.AudioAsset = <g.AudioAsset>opt_assets[_soundId];
+		const asset: g.AudioAsset = g.game.scene().asset.getAudioById(_soundId);
 		if (!asset) {
-			g.game.logger.error("AudioUtil.stop: not found " + _soundId + " in opt_assets.");
+			console.error("AudioUtil.stop: not found " + _soundId + " in assets.");
 			return;
 		}
 		const info = getPlayingAudioInfo(asset);
 		if (info !== null) {
-			info.lastPlayStartTime = Date.now() - getDuration(_soundId) - 1; // 終了している時間に調整
+			info.lastPlayStartTime = g.game.getCurrentTime() - getDuration(_soundId) - 1; // 終了している時間に調整
 		}
 		asset.stop();
 	}
 	/**
 	 * 指定した音声アセットの 再生時間を取得するメソッド
 	 * @param _soundId   対象の音声アセット名
-	 * @param opt_assets (optional)g.Assetのマップ
-	 * （省略時はg.game.scene().assetsを使用する）
 	 * @return           再生時間
 	 */
-	export function getDuration(
-		_soundId: string, opt_assets?: AssetMapType): number {
+	export function getDuration(_soundId: string): number {
 		if (!_soundId) {
 			return 0;
 		}
-		if (!opt_assets) {
-			opt_assets = g.game.scene().assets;
-		}
-		const asset: g.AudioAsset = <g.AudioAsset>opt_assets[_soundId];
+		const asset: g.AudioAsset = g.game.scene().asset.getAudioById(_soundId);
 		if (!asset) {
-			g.game.logger.error("AudioUtil.getDuration: not found " + _soundId + " in opt_assets.");
+			console.error("AudioUtil.getDuration: not found " + _soundId + " in assets.");
 			return 0;
 		}
 		return asset.duration;
@@ -167,27 +142,22 @@ export namespace audioUtil {
 	 * SEのようなループさせない音声に対しての使用を想定しており、
 	 * BGMのようなループする音声に対する使用は非推奨
 	 * @param _soundId   対象の音声アセット名
-	 * @param opt_assets (optional)g.Assetのマップ
 	 * @return           再生中ならtrue
 	 */
-	export function isPlaying(
-		_soundId: string, opt_assets?: AssetMapType): boolean {
+	export function isPlaying(_soundId: string): boolean {
 		if (!_soundId) {
 			return false;
 		}
-		if (!opt_assets) {
-			opt_assets = g.game.scene().assets;
-		}
-		const asset: g.AudioAsset = <g.AudioAsset>opt_assets[_soundId];
+		const asset: g.AudioAsset = g.game.scene().asset.getAudioById(_soundId);
 		if (!asset) {
-			g.game.logger.error("AudioUtil.isPlaying: not found " + _soundId + " in opt_assets.");
+			console.error("AudioUtil.isPlaying: not found " + _soundId + " in assets.");
 			return false;
 		}
 		const info = getPlayingAudioInfo(asset);
 		if (info === null) {
 			return false;
 		} else {
-			return (getDuration(_soundId) > (Date.now() - info.lastPlayStartTime));
+			return (getDuration(_soundId) > (g.game.getCurrentTime() - info.lastPlayStartTime));
 		}
 	}
 

@@ -12,7 +12,7 @@
     "lint": "tslint -c tslint.json -p tsconfig.json",
     "format": "tsfmt -r src/**/*.ts",
     "checkandbuild": "npm run format && npm run lint && npm run updateasset && npm run build",
-    "typedoc": "rimraf ./doc && typedoc --out ./doc ./src",
+    "typedoc": "rimraf ./doc && typedoc --out ./doc ./src/**/*.ts",
     "start": "akashic-sandbox game",
     "start3001": "akashic-sandbox -p 3001 game",
     "statsize": "cd game && akashic stat size",
@@ -31,19 +31,19 @@
     "index.js"
   ],
   "devDependencies": {
-    "@akashic/akashic-cli": "~1.3.0",
-    "@akashic/akashic-engine": "~1.12.5",
-    "@akashic/akashic-sandbox": "~0.13.3",
-    "@types/lodash": "4.14.110",
-    "@types/node": "7.0.28",
-    "jasmine": "~2.1.1",
-    "tslint": "~5.9.1",
-    "typedoc": "~0.8.0",
-    "typescript": "~2.7.2",
-    "typescript-formatter": "~7.1.0"
+    "@akashic/akashic-cli": "~2.15.52",
+    "@akashic/akashic-engine": "~3.3.0",
+    "@akashic/akashic-sandbox": "~0.17.39",
+    "@types/lodash": "4.14.179",
+    "@types/node": "17.0.21",
+    "jasmine": "~4.0.2",
+    "tslint": "~6.1.3",
+    "typedoc": "~0.22.12",
+    "typescript": "~4.5.5",
+    "typescript-formatter": "~7.2.2"
   },
   "dependencies": {
-    "@akashic-extension/akashic-animation": "2.7.1",
-    "@akashic-extension/akashic-timeline": "0.4.4"
+    "@akashic-extension/akashic-animation": "4.0.0",
+    "@akashic-extension/akashic-timeline": "3.1.0"
   }
 }

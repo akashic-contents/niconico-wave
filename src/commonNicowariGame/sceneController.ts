@@ -22,12 +22,12 @@ export abstract class SceneController {
 	 * @param {g.Scene} _scene 処理対象のScene
 	 * @return {boolean} 通常trueを返し、ハンドラ設定を解除する
 	 */
-	protected abstract onLoaded(_scene: g.Scene): boolean;
+	protected abstract handleLoaded(_scene: g.Scene): boolean;
 
 	/**
 	 * Scene#updateのハンドラ
 	 * @param {g.Scene} _scene 処理対象のScene
 	 * @return {boolean} 通常falseを返す
 	 */
-	protected abstract onUpdate(_scene: g.Scene): boolean;
+	protected abstract handleUpdate(_scene: g.Scene): boolean;
 }

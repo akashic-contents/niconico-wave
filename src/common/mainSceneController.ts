@@ -101,11 +101,9 @@ export class MainSceneController extends SceneController {
 		spriteUtil.addAssetIdsFromAssetInfoMap(CommonAssetInfo, assetIds);
 		spriteUtil.addAssetIdsFromAssetInfoMap(AssetInfo, assetIds);
 		asaEx.ResourceManager.addAsaAssetIds(
-			spriteUtil.getPjNamesFromAsainfoMap(CommonAsaInfo),
-			_game.assets, assetIds);
+			spriteUtil.getPjNamesFromAsainfoMap(CommonAsaInfo), assetIds);
 		asaEx.ResourceManager.addAsaAssetIds(
-			spriteUtil.getPjNamesFromAsainfoMap(AsaInfo),
-			_game.assets, assetIds);
+			spriteUtil.getPjNamesFromAsainfoMap(AsaInfo), assetIds);
 		audioUtil.addAssetIdsFromSoundInfoMap(CommonSoundInfo, assetIds);
 		audioUtil.addAssetIdsFromSoundInfoMap(SoundInfo, assetIds);
 		gameUtil.addAssetIdsFromMiscAssetInfoMap(MiscAssetInfo, assetIds);
@@ -113,9 +111,9 @@ export class MainSceneController extends SceneController {
 		// console.log("createScene: assetIds:"+assetIds.join(",")+".");
 		const scene = new g.Scene({ game: _game, assetIds: assetIds });
 		let parameters: RireGameParameters = null;
-		scene.loaded.handle((): boolean => {
+		scene.onLoad.addOnce((): boolean => {
 			// loaded完了後、OperationEventを処理するため1 tick遅延させる
-			scene.update.handle((): boolean => {
+			scene.onUpdate.addOnce((): boolean => {
 				// console.log("scene.update: parameters:" + parameters + ".");
 				if (parameters) {
 					// 起動パラメータの保持
@@ -125,12 +123,12 @@ export class MainSceneController extends SceneController {
 					scene.game.vars.parameters = {};
 					CommonParameterReader.read({});
 				}
-				this.onLoaded(scene);
+				this.handleLoaded(scene);
 				return true;
 			});
 			return true;
 		});
-		scene.message.handle((e: g.MessageEvent): boolean => {
+		scene.onMessage.add((e: g.MessageEvent): boolean => {
 			// console.log("scene.message: e:" + JSON.stringify(e) + ".");
 			if (isCOESessionStartMessage(e)) {
 				parameters = (<COESessionStartMessage<RireGameParameters>>e.data).parameters;
@@ -148,7 +146,7 @@ export class MainSceneController extends SceneController {
 	 * @return {boolean} 通常trueを返し、ハンドラ登録を解除する
 	 * @override
 	 */
-	protected onLoaded(_scene: g.Scene): boolean {
+	protected handleLoaded(_scene: g.Scene): boolean {
 		const game = _scene.game;
 		game.vars.scenedata = {};
 
@@ -174,27 +172,27 @@ export class MainSceneController extends SceneController {
 
 		const infoSubScene = this.informationSubscene = new InformationSubscene(_scene);
 		infoSubScene.init();
-		infoSubScene.requestedNextSubscene.handle(this, this.goNextFromInformation);
+		infoSubScene.requestedNextSubscene.add(this.goNextFromInformation, this);
 		entityUtil.appendEntity(infoSubScene, this.mainLayer);
 
 		const title = this.titleSubscene = new TitleSubscene(_scene);
 		title.init();
-		title.requestedNextSubscene.handle(this, this.goNextFromTitle);
+		title.requestedNextSubscene.add(this.goNextFromTitle, this);
 		entityUtil.appendEntity(title, this.mainLayer);
 
 		const desc = this.descriptionSubscene = new DescriptionSubscene(_scene);
 		desc.init();
-		desc.requestedNextSubscene.handle(this, this.goNextFromDescription);
+		desc.requestedNextSubscene.add(this.goNextFromDescription, this);
 		entityUtil.appendEntity(desc, this.mainLayer);
 
 		const main = this.gameSubscene = new GameSubscene(_scene);
 		main.init();
-		main.requestedNextSubscene.handle(this, this.goNextFromGame);
+		main.requestedNextSubscene.add(this.goNextFromGame, this);
 		entityUtil.appendEntity(main, this.mainLayer);
 
 		const result = this.resultSubscene = new ResultSubscene(_scene);
 		result.init();
-		result.requestedNextSubscene.handle(this, this.goNextFromResult);
+		result.requestedNextSubscene.add(this.goNextFromResult, this);
 		entityUtil.appendEntity(result, this.mainLayer);
 
 		if (CommonParameterReader.muteAudio) {
@@ -217,11 +215,11 @@ export class MainSceneController extends SceneController {
 			}
 		}
 
-		_scene.update.handle((): boolean => {
-			return this.onUpdate(_scene);
+		_scene.onUpdate.add((): boolean => {
+			return this.handleUpdate(_scene);
 		});
-		_scene.stateChanged.handle((e: g.SceneState): boolean => {
-			if (e === g.SceneState.Destroyed) {
+		_scene.onStateChange.add((e: g.SceneStateString): boolean => {
+			if (e === "destroyed") {
 				asaEx.ResourceManager.removeAllLoadedResource();
 				delete game.vars.scenedata;
 				return true;
@@ -238,8 +236,8 @@ export class MainSceneController extends SceneController {
 	 * @return {boolean} 通常falseを返す
 	 * @override
 	 */
-	protected onUpdate(_scene: g.Scene): boolean {
-		this.currentSubscene.onUpdate();
+	protected handleUpdate(_scene: g.Scene): boolean {
+		this.currentSubscene.handleUpdate();
 		return false;
 	}
 

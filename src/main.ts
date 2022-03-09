@@ -1,5 +1,5 @@
 import { MainSceneController } from "./common/mainSceneController";
 
 export = function() {
-	return MainSceneController.createMainScene(g.game);
+	g.game.pushScene(MainSceneController.createMainScene(g.game));
 };

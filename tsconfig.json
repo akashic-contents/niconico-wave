@@ -1,17 +1,20 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "noLib": true,
+    "lib": ["es5"],
     "noImplicitAny": true,
     "suppressImplicitAnyIndexErrors": false,
     "removeComments": false,
     "newLine": "LF",
     "module": "commonjs",
     "outDir": "./game/script",
-    "noUnusedLocals": true
+    "noUnusedLocals": true,
+    "allowUmdGlobalAccess": true
   },
+  "files": [
+    "node_modules/@akashic/akashic-engine/index.runtime.d.ts"
+  ],
   "include": [
-    "./typings/**/*.ts",
     "./src/**/*.ts"
   ],
   "exclude": [

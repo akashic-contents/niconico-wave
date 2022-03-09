@@ -40,7 +40,7 @@ export class InformationSubscene extends Subscene {
 		const infoAnim = this.asaInformation = new asaEx.Actor(this.scene, CommonAsaInfo.nwInformation.pj);
 		infoAnim.x = game.width / 2;
 		infoAnim.y = game.height / 2;
-		infoAnim.update.handle(spriteUtil.makeActorUpdater(infoAnim));
+		infoAnim.onUpdate.add(spriteUtil.makeActorUpdater(infoAnim));
 		infoAnim.hide();
 		entityUtil.appendEntity(infoAnim, this);
 
@@ -92,12 +92,12 @@ export class InformationSubscene extends Subscene {
 	startContent(): void {
 		this.inContent = true;
 		if (this.autoNext) {
-			this.scene.setTimeout(commonDefine.INFORMATION_WAIT, this, this.onTimeout);
+			this.scene.setTimeout(this.handleTimeout, commonDefine.INFORMATION_WAIT, this);
 			if (commonDefine.TOUCH_SKIP_WAIT > 0) {
-				this.scene.setTimeout(commonDefine.TOUCH_SKIP_WAIT, this, this.onTimeoutToTouch);
+				this.scene.setTimeout(this.handleTimeoutToTouch, commonDefine.TOUCH_SKIP_WAIT, this);
 			}
 		} else {
-			this.scene.pointDownCapture.handle(this, this.onTouch);
+			this.scene.onPointDownCapture.add(this.handleTouch, this);
 		}
 	}
 
@@ -105,7 +105,7 @@ export class InformationSubscene extends Subscene {
 	 * Scene#updateを起点とする処理から呼ばれる
 	 * @override
 	 */
-	onUpdate(): void {
+	handleUpdate(): void {
 		// NOP
 	}
 
@@ -116,7 +116,7 @@ export class InformationSubscene extends Subscene {
 	 */
 	stopContent(): void {
 		this.inContent = false;
-		this.scene.pointDownCapture.removeAll(this);
+		this.scene.onPointDownCapture.removeAll({owner: this});
 	}
 
 	/**
@@ -133,7 +133,7 @@ export class InformationSubscene extends Subscene {
 	 * Scene#setTimeoutのハンドラ
 	 * 次のシーンへの遷移を要求する
 	 */
-	private onTimeout(): void {
+	private handleTimeout(): void {
 		if (this.inContent) {
 			this.requestedNextSubscene.fire();
 		}
@@ -143,19 +143,19 @@ export class InformationSubscene extends Subscene {
 	 * Scene#setTimeoutのハンドラ
 	 * タッチ受付を開始する
 	 */
-	private onTimeoutToTouch(): void {
+	private handleTimeoutToTouch(): void {
 		if (this.inContent) {
-			this.scene.pointDownCapture.handle(this, this.onTouch);
+			this.scene.onPointDownCapture.add(this.handleTouch, this);
 		}
 	}
 
 	/**
-	 * Scene#pointDownCaptureのハンドラ
+	 * Scene#onPointDownCaptureのハンドラ
 	 * 次のシーンへの遷移を要求する
 	 * @param {g.PointDownEvent} _e イベントパラメータ
 	 * @return {boolean} trueを返し、ハンドラ登録を解除する
 	 */
-	private onTouch(_e: g.PointDownEvent): boolean {
+	private handleTouch(_e: g.PointDownEvent): boolean {
 		if (this.inContent) {
 			this.requestedNextSubscene.fire();
 		}

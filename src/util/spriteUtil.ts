@@ -1,7 +1,6 @@
 import asa = require("@akashic-extension/akashic-animation");
 import * as tl from "@akashic-extension/akashic-timeline";
 import { gameUtil } from "./gameUtil";
-import { AssetMapType } from "./gameUtil";
 import { RectData } from "./spriteSheetTypes";
 import { SpriteFrameMap } from "./spriteSheetTypes";
 import { AssetInfoType } from "../commonTypes/assetInfoType";
@@ -75,7 +74,7 @@ export namespace spriteUtil {
 		}
 		const spriteParam: g.SpriteParameterObject = {
 			scene: opt_scene,
-			src: opt_scene.assets[_info.img]
+			src: opt_scene.asset.getImageById(_info.img)
 		};
 		return spriteParam;
 	}
@@ -83,17 +82,10 @@ export namespace spriteUtil {
 	/**
 	 * AssetInfoの情報からSpriteFrameMapを生成する
 	 * @param _info      アセット情報
-	 * @param opt_assets (optional)g.Assetのマップ
-	 * （省略時はg.game.scene().assetsを使用する）
 	 * @return           生成したSpriteFrameMap
 	 */
-	export function createSpriteFrameMap(
-		_info: AssetInfoType, opt_assets?: AssetMapType): SpriteFrameMap {
-		if (!opt_assets) {
-			opt_assets = g.game.scene().assets;
-		}
-		const frameMap: SpriteFrameMap = JSON.parse(
-			(<g.TextAsset>opt_assets[_info.json]).data);
+	export function createSpriteFrameMap(_info: AssetInfoType): SpriteFrameMap {
+		const frameMap: SpriteFrameMap = g.game.scene().asset.getJSONContentById(_info.json);
 		return frameMap;
 	}
 	/**
@@ -101,8 +93,8 @@ export namespace spriteUtil {
 	 * @param _sprite 変更したいスプライトオブジェクト
 	 * @param _asset この画像に変更したい
 	 */
-	export function changeSpriteSurface(_sprite: g.Sprite, _asset: g.Asset): void {
-		_sprite.surface = (<g.ImageAsset>_asset).asSurface();
+	export function changeSpriteSurface(_sprite: g.Sprite, _asset: g.ImageAsset): void {
+		_sprite.src = _asset;
 		_sprite.invalidate();
 	}
 
