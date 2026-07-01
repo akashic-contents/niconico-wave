@@ -45,5 +45,12 @@
   "dependencies": {
     "@akashic-extension/akashic-animation": "4.0.0",
     "@akashic-extension/akashic-timeline": "3.1.0"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "npm",
+      "version": ">=11.11.0",
+      "onFail": "error"
+    }
   }
 }
