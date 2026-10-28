@@ -31,7 +31,7 @@
     "index.js"
   ],
   "devDependencies": {
-    "@akashic/akashic-cli": "~2.15.52",
+    "@akashic/akashic-cli": "~2.17.26",
     "@akashic/akashic-engine": "~3.3.0",
     "@akashic/akashic-sandbox": "~0.17.39",
     "@types/lodash": "4.14.179",
